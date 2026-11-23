@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Per què no deixem el mòbil? - Martín</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div id="pantallaPenjada" class="overlay hidden">
+    <div class="modal">
+      <div class="roda-espera"></div>
+      <div>
+        <p class="modal-titol">Aquesta pàgina no respon</p>
+        <p class="modal-sub">Pots esperar que torni a respondre o tancar la pestanya.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="ratoliGegant" class="ratoli-gegant hidden">
+    <svg width="40" height="40" viewBox="0 0 24 24">
+      <path d="M4 2 L20 12 L13 14 L16 21 L13 22 L10 15 L5 19 Z" fill="#1e242b" stroke="#fff" stroke-width="1.6"/>
+    </svg>
+  </div>
+
+  <div id="finestraSubway" class="finestra-subway hidden">
+    <div id="capSubway" class="cap-subway" title="Arrossega per moure">
+      <span>Subway Surfers</span>
+      <button id="tancarSubway" title="Tancar">×</button>
+    </div>
+    <div class="cos-subway">
+      <video id="videoSubway" src="media/subway.mp4" muted loop></video>
+    </div>
+  </div>
+
+  <div id="barraMobilFora" class="barra-mobil-fora hidden">
+    <span>Mòbil fora de l'habitació: no es pot fer servir ni jugar als minijocs.</span>
+    <button id="recuperarMobil" class="btn btn-clar">Tornar a agafar-lo</button>
+  </div>
+
+  <audio id="reproductorAudio"></audio>
+  <div id="caixaVideo" class="caixa-video hidden">
+    <div class="barra-video">
+      <span id="etiquetaVideo">Vídeo - Part 1</span>
+      <button id="plegarVideo" class="btn-petit">Amagar</button>
+    </div>
+    <video id="reproductorVideo"></video>
+  </div>
+
+  <div class="wrapper">
+    <header class="header">
+      <div class="header-text">
+        <span id="titolSeccio" class="seccio-nom">Part 1: El mòbil i el bucle</span>
+        <span class="titol-web">Per què no deixem el mòbil?</span>
+      </div>
+      <nav id="navegacio" class="passos">
+        <button class="pas active" data-part="1" title="Part 1: El mòbil i el bucle"></button>
+        <button class="pas" data-part="2" title="Part 2: Com ens retenen"></button>
+        <button class="pas" data-part="3" title="Part 3: Patrons i pressió"></button>
+        <button class="pas" data-part="4" title="Part 4: Efectes i hàbits"></button>
+      </nav>
+    </header>
+
+    <main class="principal">
+
+      <section id="part1" class="vista grid-p1">
+        <div class="panel zona-mobil">
+          <div class="panel-cap">
+            <div>
+              <h2>El mòbil sobre la taula</h2>
+              <p class="subtitol">Prova de llegir mentre van arribant avisos al costat. Quant aguantes sense obrir-lo?</p>
+            </div>
+            <div class="comptador">
+              <span class="etiqueta">Temps sense obrir</span>
+              <span id="tempsTaula" class="xifra">0,0 s</span>
+            </div>
+          </div>
+
+          <div class="taula-split">
+            <div class="col-lectura">
+              <article class="lectura">
+                <p>
+                  Cada vegada que una pantalla s'il·lumina dins del nostre camp visual, el cervell dedica
+                  recursos a preguntar-se qui escriu o què ha passat. Encara que no toquis el telèfon,
+                  el simple dubte ja divideix l'atenció i trenca el fil del que estàs llegint.
+                </p>
+                <div class="accions">
+                  <button id="girarMobil" class="btn btn-outline">Posar el mòbil cap per avall</button>
+                  <button id="reiniciarTaula" class="btn btn-ghost hidden">Reiniciar</button>
+                </div>
+                <p id="resultatTaula" class="resultat"></p>
+              </article>
+              <div id="llocVideo1" class="lloc-video"></div>
+            </div>
+
+            <div class="col-mobil">
+              <div id="mobilTaula" class="mobil-pantalla">
+                <div class="altaveu"></div>
+                <div class="hora-cap">
+                  <div class="hora-gran">21:42</div>
+                  <div class="data-petita">Diumenge, 22 de novembre</div>
+                </div>
+                <div id="avisosMobil" class="llista-avisos">
+                  <div class="avisos-buit">Mòbil en silenci sobre la taula...</div>
+                </div>
+                <button id="desbloquejarMobil" class="boto-desbloquejar">Desbloquejar el mòbil</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="blocBucle" class="panel">
+          <div class="panel-cap">
+            <div>
+              <h2>El bucle de cada dia</h2>
+              <p class="subtitol">Agafa la vora de la roda i fes-la girar amb el ratolí.</p>
+            </div>
+            <div class="cap-dreta">
+              <div id="pausa15s" class="pausa-etiqueta hidden">
+                <span>Pausa forçada</span>
+                <strong>15 segons</strong>
+              </div>
+              <div class="comptador">
+                <span class="etiqueta">Temps perdut</span>
+                <span id="rellotgeBucle" class="xifra">00:00 min</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="zona-roda">
+            <div id="rodaBucle" class="roda-caixa" title="Arrossega des de la vora per girar la roda">
+              <div id="rodaGir" class="roda-gir">
+                <svg class="roda-svg" viewBox="0 0 380 380">
+                  <circle class="roda-guia" cx="190" cy="190" r="168"/>
+                  <circle class="roda-fons" cx="190" cy="190" r="132"/>
+                  <circle class="roda-arc" data-pas="1" cx="190" cy="190" r="132" transform="rotate(-70 190 190)"/>
+                  <circle class="roda-arc" data-pas="2" cx="190" cy="190" r="132" transform="rotate(20 190 190)"/>
+                  <circle class="roda-arc" data-pas="3" cx="190" cy="190" r="132" transform="rotate(110 190 190)"/>
+                  <circle class="roda-arc" data-pas="4" cx="190" cy="190" r="132" transform="rotate(200 190 190)"/>
+                  <circle class="roda-punt" cx="322" cy="190" r="7" transform="rotate(-45 190 190)"/>
+                </svg>
+
+                <div class="node-roda pos-dalt" data-pas="1">
+                  <div class="node-text"><b>1</b><span>Mires l'hora o 1 missatge</span></div>
+                </div>
+                <div class="node-roda pos-dreta" data-pas="2">
+                  <div class="node-text"><b>2</b><span>Veus una notificació</span></div>
+                </div>
+                <div class="node-roda pos-baix" data-pas="3">
+                  <div class="node-text"><b>3</b><span>Obres una xarxa social</span></div>
+                </div>
+                <div class="node-roda pos-esq" data-pas="4">
+                  <div class="node-text"><b>4</b><span>20-30 min perduts</span></div>
+                </div>
+              </div>
+
+              <div class="centre-roda">
+                <b id="voltesBucle">0</b>
+                <span>voltes</span>
+                <small>arrossega la vora</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="part2" class="vista grid-p2 hidden">
+        <div id="sec-scroll" class="card zona-mobil">
+          <div class="card-cap">
+            <h2>Scroll infinit</h2>
+            <span id="comptadorScroll" class="badge">0 publicacions</span>
+          </div>
+          <div class="scroll-split">
+            <div class="feed">
+              <div class="feed-cap"><span>Xarxa</span><span>Baixa ↓</span></div>
+              <div id="murScroll" class="feed-llista"></div>
+            </div>
+            <div class="dades-col">
+              <p class="desc">
+                Baixa pel mur. Com el bol de sopa que s'omplia sol (+73%), si no hi ha final de pàgina el cervell no rep mai l'ordre d'aturar-se.
+              </p>
+              <div class="taula-dades">
+                <div class="fila-dada"><span>Temps</span><b id="tempsScroll">0,0 s</b></div>
+                <div class="fila-dada"><span>Distància</span><b id="metresScroll">0,0 m</b></div>
+                <div class="fila-dada"><span>Publicacions</span><b id="postsScroll">0</b></div>
+                <div class="fila-dada"><span>M'agrades</span><b id="likesScroll">0</b></div>
+              </div>
+              <p id="resultatScroll" class="resultat"></p>
+            </div>
+          </div>
+        </div>
+
+        <div id="sec-colors" class="card zona-mobil">
+          <div class="card-cap">
+            <h2>Colors brillants i escala de grisos</h2>
+            <button id="botoGrisLocal" class="btn btn-primary">Posar en escala de grisos</button>
+          </div>
+          <div class="colors-split">
+            <div id="graellaApps" class="graella-apps"></div>
+            <div class="colors-text">
+              <p class="desc">
+                El vermell dispara l'alerta perquè el cervell l'associa al perill o a alguna cosa urgent.
+                El taronja i el groc criden la vista de reüll, mentre que el blau transmet calma perquè no tanquis l'app.
+              </p>
+              <p class="desc">Prova de treure el color d'aquesta pantalla:</p>
+              <div id="avisGris" class="avis-gris hidden">
+                <strong>Oi que ara ja no crida tant l'atenció?</strong>
+                <span>Sense vermells ni tant de contrast, sembla una pantalla molt més avorrida.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="sec-refresh" class="card zona-mobil">
+          <div class="card-cap">
+            <h2>Recompensa variable</h2>
+            <span id="comptadorRecarrega" class="badge">0 recàrregues</span>
+          </div>
+          <div class="recarrega-split">
+            <div class="caixa-recarrega">
+              <div class="cap-recarrega">Activitat recent</div>
+              <div class="accions-recarrega">
+                <button id="botoRecarrega" class="btn btn-outline ample">↓ Recarrega les novetats</button>
+                <div id="spinnerRecarrega" class="spinner-petit hidden"></div>
+              </div>
+              <div id="llistaRecarrega" class="llista-recarrega">
+                <div class="recarrega-buit">Cap novetat ara mateix. Prova de recarregar.</div>
+              </div>
+            </div>
+            <div class="dades-col">
+              <p class="desc">
+                La dopamina puja just en aquell segon d'espera sense saber si sortirà res, igual que en un casino (Skinner va veure que es premia la palanca el triple de vegades).
+              </p>
+              <div class="taula-dades">
+                <div class="fila-dada"><span>Intents buits</span><b id="recarregaBuits">0</b></div>
+                <div class="fila-dada"><span>Cops amb premi</span><b id="recarregaPremis">0</b></div>
+              </div>
+              <p id="resultatRecarrega" class="resultat"></p>
+            </div>
+          </div>
+        </div>
+
+        <div id="sec-algo" class="card zona-mobil">
+          <div class="card-cap">
+            <h2>L'algoritme t'observa</h2>
+            <div class="accions">
+              <button id="generarMur" class="btn btn-primary btn-sm">Generar el meu mur</button>
+              <button id="reiniciarAlgo" class="btn btn-outline btn-sm">Reiniciar</button>
+            </div>
+          </div>
+          <div class="algo-split">
+            <div class="algo-esq">
+              <p class="desc">Passa el ratolí o clica "M'agrada" en els temes que et cridin l'atenció:</p>
+              <div id="targetesAlgo" class="graella-algo"></div>
+            </div>
+            <div class="algo-dreta">
+              <span class="etiqueta">Perfil detectat</span>
+              <div id="barresPerfil" class="barres-perfil"></div>
+              <p id="resultatAlgo" class="resultat"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="part3" class="vista grid-p3 hidden">
+        <div id="sec-notis" class="col-card zona-mobil">
+          <div class="col-cap">
+            <h2>Cervell ràpid i racional</h2>
+            <span id="etiquetaRonda" class="badge">Ronda 1 de 4</span>
+          </div>
+          <p class="subtitol">Clica tan ràpid com puguis la notificació que obriries primer:</p>
+          <div id="zonaNotis" class="llista-notis"></div>
+          <p id="resultatNotis" class="resultat"></p>
+          <div id="llocVideo3" class="lloc-video"></div>
+        </div>
+
+        <div id="sec-trampa" class="col-card zona-mobil">
+          <div class="col-cap">
+            <h2>Fricció i patrons foscos</h2>
+            <span id="etiquetaTrampa" class="badge">Prova 1 / 3</span>
+          </div>
+          <p class="subtitol">Mira com canvien els passos quan intentes dir que no o sortir-ne:</p>
+          <div class="fons-trampa">
+            <div class="finestra-web">
+              <div class="barra-web">preferencies.web/avis</div>
+              <div id="caixaTrampa" class="cos-trampa"></div>
+            </div>
+          </div>
+          <p id="resultatTrampa" class="resultat"></p>
+        </div>
+
+        <div id="sec-fomo" class="col-card zona-mobil">
+          <div class="col-cap">
+            <h2>Pressió social (FOMO)</h2>
+            <span id="rellotgeFomo" class="badge badge-alerta">15 s</span>
+          </div>
+          <p class="subtitol">
+            El rebuig social activa la mateixa zona del cervell que el dolor físic. Salves la ratxa o ho deixes passar?
+          </p>
+          <div class="targeta-fomo">
+            <div class="cap-fomo">
+              <strong>Xat i ratxes</strong>
+              <span class="actiu-ara"><i class="punt-verd"></i>Actiu ara</span>
+            </div>
+            <div class="cos-fomo">
+              <div class="bloc-fomo">
+                <div class="fons-barra-fomo"><div id="barraFomo"></div></div>
+                <b>Història d'en Marc (desapareix aviat)</b>
+              </div>
+              <div class="alerta-fomo">
+                <b>Ratxa de 42 dies en perill</b>
+                <span>Envia una foto abans que s'acabi el temps o la perdràs.</span>
+              </div>
+              <div class="bloc-fomo">
+                <div class="missatge-xat">Laia: Ei, has vist el que ha passat?</div>
+                <div class="estat-xat">Vist fa 1 min, la Laia està escrivint...</div>
+              </div>
+            </div>
+            <div class="botons-fomo">
+              <button id="salvarRatxa" class="btn btn-primary">Salvar la ratxa</button>
+              <button id="deixarRatxa" class="btn btn-outline">Deixar-la trencar</button>
+            </div>
+          </div>
+          <div class="accions reinici-fomo">
+            <button id="reiniciarFomo" class="btn btn-ghost hidden">Repetir compte enrere</button>
+          </div>
+          <p id="resultatFomo" class="resultat"></p>
+        </div>
+      </section>
+
+      <section id="part4" class="vista grid-p4 hidden">
+        <div class="panel">
+          <div class="panel-cap">
+            <div>
+              <h2>Estudia amb el mòbil al costat</h2>
+              <p class="subtitol">
+                Mantén premut el botó fins al 100%. Cada avís et talla la concentració fins que el tanquis.
+              </p>
+            </div>
+            <div class="comptador">
+              <span class="etiqueta">Progrés</span>
+              <span id="percentatgeEstudi" class="xifra">0%</span>
+            </div>
+          </div>
+
+          <div class="barra-estudi">
+            <div id="progresEstudi" class="omplir-estudi"></div>
+          </div>
+
+          <div id="zonaEstudi" class="zona-estudi">
+            <button id="botoEstudiar" class="boto-estudi">Mantén premut per estudiar</button>
+          </div>
+
+          <div class="peu-estudi">
+            <button id="reiniciarEstudi" class="btn btn-outline btn-sm">Reiniciar prova</button>
+            <span id="resultatEstudi" class="resultat"></span>
+          </div>
+        </div>
+
+        <div class="col-dreta-p4">
+          <div id="blocEfectes" class="bloc-lateral">
+            <h3>Efectes al cervell</h3>
+            <div class="xifres-cervell">
+              <div class="dada-gran">
+                <strong>-20% a -50%</strong>
+                <span>de melatonina si mires pantalles abans de dormir (retarda la son mitja hora).</span>
+              </div>
+              <div class="dada-gran">
+                <strong>23 minuts</strong>
+                <span>el que triga el cervell a tornar a concentrar-se del tot després d'una interrupció.</span>
+              </div>
+            </div>
+            <ul class="notes-cervell">
+              <li>Només tenir el mòbil sobre la taula, encara que estigui apagat, ja gasta atenció.</li>
+              <li>Comparar la vida real amb fotos editades fa pujar l'estrès del dia a dia.</li>
+            </ul>
+          </div>
+
+          <div id="blocConsells" class="bloc-lateral bloc-consells">
+            <div class="card-cap">
+              <h3>Canvia l'entorn: 3 consells</h3>
+              <span id="comptadorConsells" class="badge">0 / 3</span>
+            </div>
+
+            <div class="llista-consells">
+              <label id="consell1" class="fila-consell">
+                <span class="num-consell">1</span>
+                <div class="text-consell">
+                  <b>Escala de grisos</b>
+                  <small>Treu tots els colors de la web a l'instant.</small>
+                </div>
+                <input id="switchGris" class="check-consell" type="checkbox">
+                <span class="switch"></span>
+              </label>
+
+              <label id="consell2" class="fila-consell">
+                <span class="num-consell">2</span>
+                <div class="text-consell">
+                  <b>Només notificacions de persones reals</b>
+                  <small>Silencia les apps automàtiques quan estudies.</small>
+                </div>
+                <input id="switchNotis" class="check-consell" type="checkbox">
+                <span class="switch"></span>
+              </label>
+
+              <label id="consell3" class="fila-consell">
+                <span class="num-consell">3</span>
+                <div class="text-consell">
+                  <b>Deixar el mòbil fora de l'habitació</b>
+                  <small>Bloqueja el mòbil i tots els minijocs de mòbil de tota la web.</small>
+                </div>
+                <input id="switchMobilFora" class="check-consell" type="checkbox">
+                <span class="switch"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <div class="reproductor-peu">
+        <button id="botoPlay" class="boto-play" title="Reproduir o pausar">
+          <svg id="iconaPlay" width="14" height="14" viewBox="0 0 14 14"><path d="M3 2 L12 7 L3 12 Z" fill="currentColor"/></svg>
+          <svg id="iconaPausa" class="hidden" width="14" height="14" viewBox="0 0 14 14"><rect x="2.5" y="2" width="3.2" height="10" fill="currentColor"/><rect x="8.3" y="2" width="3.2" height="10" fill="currentColor"/></svg>
+        </button>
+
+        <div class="pista-caixa">
+          <div class="pista-info">
+            <span id="nomPista" class="nom-pista">Part 1: Introducció</span>
+            <span id="tempsMedia" class="temps-media">0:00 / 3:29</span>
+          </div>
+          <input id="barraTemps" class="barra-temps" type="range" min="0" max="100" step="0.1" value="0">
+        </div>
+
+        <button id="botoVideo" class="btn btn-outline btn-xs">Amagar vídeo</button>
+      </div>
+
+      <button id="botoGris" class="boto-gris">
+        <span class="quadrat-gris"></span>
+        <span id="textGris">Mode gris</span>
+      </button>
+
+      <div class="navegacio-peu">
+        <button id="botoAnterior" class="btn btn-outline boto-fletxa" title="Part anterior">←</button>
+        <span id="indicadorPart" class="num-part">1 / 4</span>
+        <button id="botoSeguent" class="btn btn-primary boto-seguent">Següent part →</button>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/jocs.js"></script>
+</body>
+</html>

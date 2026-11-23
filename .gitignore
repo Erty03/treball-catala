@@ -1,0 +1,14 @@
+raw_clips/
+*.wav
+*.odt
+*.md
+.~lock.*
+*.tmp
+*.bak
+*.orig
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+*.log
